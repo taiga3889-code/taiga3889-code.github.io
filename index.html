@@ -2,10 +2,127 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>福永 大河 - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiga Fukunaga | Research Portfolio</title>
+    
+    <!-- Google Fonts の読み込み（モダンなフォント） -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- 数式表示ライブラリ (MathJax) -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- コードハイライトライブラリ (highlight.js) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <!-- サイト全体のデザイン (CSS) -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f6f8;
+            --text-color: #333;
+        }
+        body {
+            font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4rem 2rem 5rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: -3rem auto 2rem;
+            padding: 3rem;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+            font-size: 1.5rem;
+        }
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        pre {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
+
+<header>
     <h1>Taiga Fukunaga</h1>
-    <p>理検DoctorAAA。</p>
+    <p>高校2年生 / 理検doctorAAA</p>
+</header>
+
+<div class="container">
+    <div class="section">
+        <h2>About Me</h2>
+        <p>アルゴリズムの計算量削減および、マテリアルズ・インフォマティクス（MI）を活用した無機材料の探索に関する研究を行っています。</p>
+    </div>
+
+    <div class="section">
+        <h2>Research 1: Algorithm (HCR法)</h2>
+        <p>標準的な動的計画法（DP）を拡張し、空間計算量を \(O(n)\) に削減する独自手法「Hierarchical Carry Reduction (HCR法)」の構築とベンチマークテストを行っています。</p>
+        
+        <!-- プログラミングコードの表示部分 -->
+        <pre><code class="language-python">
+# HCR法 空間計算量検証用ベンチマーク（概念）
+def hcr_algorithm_benchmark(data):
+    # 空間計算量 O(n) での処理を実行
+    space_optimized_array = [0] * len(data)
+    for i in range(len(data)):
+        space_optimized_array[i] = process(data[i])
+    return space_optimized_array
+        </code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Research 2: Materials Informatics</h2>
+        <p>セラミック顔料の新規組成探索において、熱力学的安定性と化学的占有率の制約を満たすレシピを計算機上でスクリーニングし、実際の焼成実験（ウェットミキシング等）へ繋げるアプローチを設計しています。</p>
+        <div style="margin-top: 1rem;">
+            <span class="tag">Materials Informatics</span>
+            <span class="tag">Computational Chemistry</span>
+            <span class="tag">Inorganic Pigments</span>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
