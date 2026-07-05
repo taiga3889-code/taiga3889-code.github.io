@@ -5,124 +5,286 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taiga Fukunaga | Research Portfolio</title>
     
-    <!-- Google Fonts の読み込み（モダンなフォント） -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- 数式表示ライブラリ (MathJax) -->
-
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
-    <!-- コードハイライトライブラリ (highlight.js) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
-    <!-- サイト全体のデザイン (CSS) -->
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f4f6f8;
-            --text-color: #333;
+            --primary: #0a192f;
+            --secondary: #172a45;
+            --accent: #ffd700; /* ゴールド：理検AAA */
+            --accent-glow: #3498db;
+            --text: #ccd6f6;
+            --text-dim: #8892b0;
+            --font-main: 'Noto Sans JP', sans-serif;
+            --font-title: 'Space Grotesk', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
         }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+            font-family: var(--font-main);
+            color: var(--text);
+            background-color: var(--primary);
+            overflow-x: hidden;
             line-height: 1.8;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
         }
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 4rem 2rem 5rem;
+        
+        /* 1. 埋め込みファイルをデザインとして活用：ヒーローセクション */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-        }
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-        }
-        .container {
-            max-width: 800px;
-            margin: -3rem auto 2rem;
-            padding: 3rem;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-radius: 12px;
-        }
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            margin-top: 2.5rem;
-            font-size: 1.5rem;
-        }
-        .section {
-            margin-bottom: 2.5rem;
-        }
-        .tag {
-            display: inline-block;
-            background: #e9ecef;
-            color: #495057;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        pre {
-            border-radius: 8px;
+            padding: 2rem;
+            color: white;
+            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.95)),
+                        url('https://taiga3889-code.github.io/assets/research-visual-bg.png') center/cover; /* 研究ビジュアルの背景を想定。ない場合は単色になります */
             overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, rgba(10, 25, 47, 0.95) 80%);
+            z-index: 1;
+        }
+        
+        /* 動的なデータストリームアニメーション */
+        .data-stream {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--secondary) 1px, transparent 1px),
+                            linear-gradient(90deg, var(--secondary) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: 0;
+            animation: moveStream 10s linear infinite;
+        }
+        @keyframes moveStream {
+            from { background-position: 0 0; }
+            to { background-position: 50px 50px; }
+        }
+        
+        .hero-content {
+            z-index: 2;
+            max-width: 1000px;
+        }
+        
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 2rem; }
+        
+        .creds {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(23, 42, 69, 0.8);
+            border: 1px solid var(--accent);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            color: var(--accent);
+            font-weight: 700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            margin-top: 1rem;
+        }
+        
+        /* 埋め込みファイルのビジュアル部分 (HCR & MI) */
+        .research-visuals {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .visual-card {
+            background: rgba(23, 42, 69, 0.6);
+            border: 1px solid var(--accent-glow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 300px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .visual-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+        }
+        
+        .visual-card h3 { font-family: var(--font-title); color: white; margin-bottom: 1rem; font-size: 1.1rem;}
+        
+        .graph-sim, .mole-sim { height: 100px; width: 100%; border: 1px solid #333; margin-top: 1rem; border-radius: 6px; position: relative;}
+        
+        /* HCR法のグラフシミュレーション（CSSで描画） */
+        .graph-sim::before {
+            content: ''; position: absolute; bottom: 10px; left: 10px; width: 80%; height: 2px; background: white;
+        }
+        .graph-sim::after {
+            content: ''; position: absolute; bottom: 10px; left: 10px; width: 2px; height: 80%; background: white;
+        }
+        .graph-sim .line {
+            position: absolute; bottom: 10px; left: 12px; height: 0; width: 75%;
+            background: var(--accent-glow);
+            transform: skewY(-40deg);
+            animation: HCRGraph 3s ease-out infinite;
+        }
+        @keyframes HCRGraph {
+            0% { height: 0; } 50% { height: 60%; } 100% { height: 60%; }
+        }
+        
+        /* MIの3D分子モデルシミュレーション（CSSで描画） */
+        .mole-sim { display: flex; justify-content: center; align-items: center; }
+        .atom { width: 15px; height: 15px; background: #e74c3c; border-radius: 50%; position: absolute; animation: moleFloat 5s infinite; }
+        .atom2 { width: 10px; height: 10px; background: #2ecc71; animation-delay: 1s; }
+        .atom3 { width: 12px; height: 12px; background: var(--accent-glow); animation-delay: 2s; }
+        @keyframes moleFloat {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(15px, 10px); }
+            50% { transform: translate(-10px, -15px); }
+            75% { transform: translate(-15px, 15px); }
+        }
+        
+        /* 2. インタラクティブなカードデザイン：研究紹介 */
+        .container { max-width: 1000px; margin: 0 auto; padding: 5rem 2rem; }
+        h2 { font-family: var(--font-title); font-size: 2.2rem; color: white; margin-bottom: 3rem; text-align: center; }
+        
+        .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .project-card {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 3rem;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+        .project-card:hover { transform: scale(1.03); }
+        
+        .project-card h3 { color: white; margin-bottom: 1rem; border-bottom: 1px solid var(--accent-glow); padding-bottom: 0.5rem; }
+        .tag-group { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+        .tag { background: rgba(52, 152, 219, 0.1); color: var(--accent-glow); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-family: var(--font-mono); }
+        
+        /* 3. アニメーション・タイムライン：自己紹介 */
+        .timeline { list-style: none; position: relative; margin-top: 3rem; }
+        .timeline::before {
+            content: ''; position: absolute; top: 0; left: 1rem; width: 2px; height: 100%; background: var(--accent-glow); opacity: 0.3;
+        }
+        .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 3rem; }
+        .timeline-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 2rem; height: 2rem; background: var(--secondary); border: 2px solid var(--accent); border-radius: 50%; z-index: 2; transition: all 0.3s;
+        }
+        .timeline-item:hover::before { background: var(--accent); scale: 1.1; }
+        .timeline-item .date { font-family: var(--font-mono); color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+        .timeline-item .content { background: var(--secondary); padding: 1.5rem; border-radius: 8px; margin-top: 0.5rem;}
+        
+        pre { border-radius: 8px; overflow: hidden; }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .visual-card { width: 100%; }
+            .container { padding: 3rem 1rem; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Taiga Fukunaga</h1>
-    <p>高校2年生 / 理検doctorAAA</p>
-</header>
-
-<div class="container">
-    <div class="section">
-        <h2>About Me</h2>
-        <p>アルゴリズムの計算量削減および、マテリアルズ・インフォマティクス（MI）を活用した無機材料の探索に関する研究を行っています。</p>
-    </div>
-
-    <div class="section">
-        <h2>Research 1: Algorithm (HCR法)</h2>
-        <p>標準的な動的計画法（DP）を拡張し、空間計算量を \(O(n)\) に削減する独自手法「Hierarchical Carry Reduction (HCR法)」の構築とベンチマークテストを行っています。</p>
+<header class="hero">
+    <div class="data-stream"></div>
+    <div class="hero-content">
+        <h1>Taiga Fukunaga</h1>
+        <p>アルゴリズム計算量と、マテリアルズ・インフォマティクスに関する研究ポートフォリオ。</p>
+        <div class="creds">
+            <span style="font-size: 1.2rem;">★</span> 理検doctorAAA Candidate
+        </div>
         
-        <!-- プログラミングコードの表示部分 -->
-        <pre><code class="language-python">
-# HCR法 空間計算量検証用ベンチマーク（概念）
-def hcr_algorithm_benchmark(data):
-    # 空間計算量 O(n) での処理を実行
-    space_optimized_array = [0] * len(data)
-    for i in range(len(data)):
-        space_optimized_array[i] = process(data[i])
-    return space_optimized_array
-        </code></pre>
-    </div>
-
-    <div class="section">
-        <h2>Research 2: Materials Informatics</h2>
-        <p>セラミック顔料の新規組成探索において、熱力学的安定性と化学的占有率の制約を満たすレシピを計算機上でスクリーニングし、実際の焼成実験（ウェットミキシング等）へ繋げるアプローチを設計しています。</p>
-        <div style="margin-top: 1rem;">
-            <span class="tag">Materials Informatics</span>
-            <span class="tag">Computational Chemistry</span>
-            <span class="tag">Inorganic Pigments</span>
+        <div class="research-visuals">
+            <div class="visual-card">
+                <h3>HCR Algorithm: O(n) Efficiency</h3>
+                <div class="graph-sim"><div class="line"></div></div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-dim);">標準DPに対する空間計算量の削減検証グラフ</p>
+            </div>
+            <div class="visual-card">
+                <h3>MI: Molecular Optimization</h3>
+                <div class="mole-sim"><div class="atom atom1"></div><div class="atom atom2"></div><div class="atom atom3"></div></div>
+                <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-dim);">顔料組成探索における熱力学的安定性モデル</p>
+            </div>
         </div>
     </div>
-</div>
+</header>
+
+<main class="container">
+    <section>
+        <h2>Research Interests</h2>
+        <div class="research-grid">
+            <div class="project-card">
+                <h3>1. Algorithm (HCR法)</h3>
+                <p>標準的な動的計画法（DP）を拡張し、空間計算量を \(O(n)\) に削減する独自手法「Hierarchical Carry Reduction (HCR法)」の構築とベンチマークテストを行っています。</p>
+                <div class="tag-group">
+                    <span class="tag">Computational Complexity</span>
+                    <span class="tag">DP Optimization</span>
+                    <span class="tag">O(n)</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>2. Materials Informatics</h3>
+                <p>セラミック顔料の新規組成探索において、熱力学的安定性と化学的占有率の制約を満たすレシピを計算機上でスクリーニングし、実際の焼成実験へ繋げるアプローチを設計しています。</p>
+                <div class="tag-group">
+                    <span class="tag">Computational Chemistry</span>
+                    <span class="tag">Inorganic Pigments</span>
+                    <span class="tag">MI Pipeline</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="margin-top: 6rem;">
+        <h2>About Me & Timeline</h2>
+        <p>高校2年生。理検doctorAAA（理科検定1級相当）として、計算科学と物質科学の融合領域（MI）におけるアルゴリズムの適用可能性を探求しています。</p>
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="date">NOW / 2023</div>
+                <div class="content">
+                    <h4>Research Focus: HCR & MI</h4>
+                    <p>HCR法の空間計算量検証と、MIを用いた顔料探索レシピのスクリーニング実験を継続中。</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="date">2023</div>
+                <div class="content">
+                    <h4>Achievement: 理検doctorAAA</h4>
+                    <p>高校生で最高峰の理検doctorAAAを取得。学際的な研究能力の基礎を確立。</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="date">2022</div>
+                <div class="content">
+                    <h4>Begin: Materials Research</h4>
+                    <p>无機材料の特性評価、ウェットミキシングによる焼成実験などの基礎を学ぶ。</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+</main>
 
 </body>
 </html>
