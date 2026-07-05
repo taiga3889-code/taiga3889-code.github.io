@@ -1,0 +1,45 @@
+# 1. サイト用の新しいフォルダを作成し、そのフォルダに移動する
+mkdir taiga3889-code.github.io
+cd taiga3889-code.github.io
+
+# 2. Gitリポジトリとして初期化する
+git init
+
+# 3. READMEファイルを作成する
+echo "# taiga3889-code.github.io" > README.md
+
+# 4. トップページとなる index.html を作成する（ポートフォリオの雛形付き）
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Taiga Fukunaga - Portfolio</title>
+</head>
+<body>
+    <h1>Taiga Fukunaga</h1>
+    <p>高校2年生 / 理検doctorAAA</p>
+    
+    <h2>Research Interests</h2>
+    <ul>
+        <li>アルゴリズム研究 (HCR法)</li>
+        <li>マテリアルズ・インフォマティクス (MIを用いた無機顔料の探索)</li>
+    </ul>
+</body>
+</html>
+EOF
+
+# 5. 作成したすべてのファイルをGitの管理対象（ステージングエリア）に追加する
+git add .
+
+# 6. 追加したファイルに変更履歴としてメッセージをつけて保存（コミット）する
+git commit -m "Initial commit: プロジェクトの初期設定とindex.htmlの追加"
+
+# 7. メインのブランチ名を「main」に設定する
+git branch -M main
+
+# 8. GitHub上のリモートリポジトリと紐付ける
+git remote add origin https://github.com/taiga3889-code/taiga3889-code.github.io.git
+
+# 9. GitHubへデータを送信（プッシュ）する
+git push -u origin main
