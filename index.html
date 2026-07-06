@@ -3,279 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>理検DoctorAAA 福永大河 | Portfolio</title>
+    <title>福永 大河 | 理検DoctorAAA</title>
     
-    <!-- サイバー感のある英語フォントと、読みやすい日本語フォント -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- 美しい明朝体とゴシック体の読み込み -->
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 全体のベース設定（ダークモード） */
+        /* =======================================
+           1. 全体のベースデザイン（オシャレで透明感のある白基調）
+        ======================================= */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Noto Sans JP', sans-serif;
-            color: #e0eaff;
-            background-color: #050b14;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            color: #2c3e50;
+            background-color: #f8fafc;
             line-height: 1.8;
             overflow-x: hidden;
+            /* パソコンではデフォルトカーソルを消す */
+            cursor: none; 
         }
 
-        /* 躍動感を生む背景の光る球体（アニメーション） */
-        .orb {
+        /* 追従するカスタムカーソル */
+        .cursor-dot, .cursor-outline {
             position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
             border-radius: 50%;
-            filter: blur(100px);
-            z-index: -1;
-            animation: float 20s infinite ease-in-out alternate;
+            z-index: 9999;
+            pointer-events: none;
         }
-        .orb-1 {
-            width: 400px; height: 400px;
-            background: #00f2fe;
-            top: -100px; left: -100px;
+        .cursor-dot {
+            width: 8px; height: 8px;
+            background-color: #2c3e50;
         }
-        .orb-2 {
-            width: 500px; height: 500px;
-            background: #4facfe;
-            bottom: -150px; right: -100px;
-            animation-delay: -5s;
-        }
-        .orb-3 {
-            width: 300px; height: 300px;
-            background: #8e2de2;
-            top: 40%; left: 40%;
-            animation-delay: -10s;
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(44, 62, 80, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
-        @keyframes float {
+        /* 背景で漂う流体グラデーション（オーロラ効果） */
+        .blob-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            filter: blur(60px);
+            opacity: 0.6;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            animation: moveBlob 15s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .blob-1 { width: 50vw; height: 50vw; background: #e0c3fc; top: -10%; left: -10%; }
+        .blob-2 { width: 40vw; height: 40vw; background: #8ec5fc; bottom: -10%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 45vw; height: 45vw; background: #ffecd2; top: 30%; left: 30%; animation-delay: -10s; }
+
+        @keyframes moveBlob {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, 50px) scale(1.1); }
-            100% { transform: translate(-30px, -20px) scale(0.9); }
+            100% { transform: translate(10vw, 15vh) scale(1.1) rotate(20deg); }
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 5rem 2rem;
         }
 
-        /* プロ仕様のダーク・グラスモーフィズム */
-        .glass-card {
-            background: rgba(10, 20, 40, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            border-radius: 16px;
-            padding: 3rem;
-            margin-bottom: 4rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 242, 254, 0.05);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        /* =======================================
+           2. 躍動感を生む3Dグラスモーフィズムカード
+        ======================================= */
+        .tilt-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            margin-bottom: 5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            /* JSで3D回転させるための設定 */
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: box-shadow 0.3s ease;
+        }
+        .tilt-card:hover {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
         }
 
-        .glass-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(0, 242, 254, 0.1);
+        /* カード内の要素を浮き上がらせる */
+        .tilt-content {
+            transform: translateZ(40px); /* 手前に浮く */
         }
 
-        /* スクロール連動でフワッと出すための仕掛け */
-        .reveal {
+        /* =======================================
+           3. スクロール連動の美しいアニメーション
+        ======================================= */
+        .fade-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .reveal.active {
+        .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* =======================================
+           4. 洗練されたタイポグラフィ（文字デザイン）
+        ======================================= */
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-family: 'Shippori Mincho', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
             text-align: center;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            color: #ffffff;
-            border-bottom: 2px solid #00f2fe;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            margin: 0 0 1rem 0;
+            letter-spacing: 4px;
+            color: #1a202c;
         }
 
         .subtitle {
             text-align: center;
-            font-size: 1.2rem;
-            color: #a0aec0;
+            font-size: 1.1rem;
+            color: #718096;
+            letter-spacing: 2px;
             margin-bottom: 2rem;
-            letter-spacing: 1px;
+            font-weight: 500;
         }
 
-        .tags { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 1.5rem; }
+        h2 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2rem;
+            color: #1a202c;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 40px; height: 3px;
+            background: #8ec5fc;
+            border-radius: 2px;
+        }
 
+        p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        /* オシャレなタグ */
+        .tags { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 2rem; }
         .tag {
-            background: rgba(0, 242, 254, 0.1);
-            color: #00f2fe;
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            background: #fff;
+            color: #4a5568;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f7;
+            transition: all 0.3s ease;
+        }
+        .tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(142, 197, 252, 0.3);
+            color: #8ec5fc;
         }
 
+        /* 洗練されたボタン */
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
-            color: #050b14;
+            padding: 1rem 2.5rem;
+            background: #1a202c;
+            color: #fff;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             margin-top: 1.5rem;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            position: relative;
+            overflow: hidden;
         }
-        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
         .btn:hover {
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.8);
-            transform: scale(1.05);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(26, 32, 44, 0.2);
         }
+        .btn:hover::before { left: 100%; }
 
-        /* 証明書ギャラリー */
+        /* =======================================
+           5. ギャラリー＆埋め込み（躍動感マシマシ）
+        ======================================= */
         .cert-gallery {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
-        
-        @media (min-width: 768px) {
-            .cert-gallery { grid-template-columns: repeat(2, 1fr); }
+
+        .cert-img-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            /* ホバー時の連携アニメーション用 */
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
         }
 
         .cert-img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.5s ease;
-            filter: grayscale(20%); /* ダークテーマに馴染ませる */
-        }
-        
-        .cert-img:hover {
-            transform: scale(1.05) translateY(-10px);
-            filter: grayscale(0%); /* ホバーで鮮やかに */
-            border-color: rgba(0, 242, 254, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.2);
-            z-index: 10;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* 埋め込みエリア */
+        /* ギャラリー全体にマウスが乗った時、乗ってない画像を少し暗くする（プロっぽさ） */
+        .cert-gallery:hover .cert-img-wrapper { filter: grayscale(40%) opacity(0.7); }
+        /* マウスが乗っている画像だけ鮮やかに拡大 */
+        .cert-gallery .cert-img-wrapper:hover {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.05) translateY(-10px);
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .cert-gallery .cert-img-wrapper:hover .cert-img { transform: scale(1.1); }
+
         .iframe-wrapper {
             position: relative;
             width: 100%;
-            height: 450px;
-            border-radius: 12px;
+            height: 500px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            border: 4px solid #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
             margin-top: 2rem;
-            background-color: #fff;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            background: #fff;
         }
-
         .iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
 
-        @media (max-width: 600px) {
-            .glass-card { padding: 2rem 1.5rem; }
-            h1 { font-size: 2rem; }
+        /* スマホ対応（カーソルを消してレイアウト調整） */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; }
+            h1 { font-size: 2.2rem; }
+            .tilt-card { padding: 3rem 1.5rem; transform: none !important; }
+            .tilt-content { transform: none !important; }
+            .blob-container { filter: blur(40px); }
         }
     </style>
 </head>
 <body>
 
-<!-- 背景の光の球体 -->
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
+<!-- カスタムカーソル -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-outline" id="cursor-outline"></div>
+
+<!-- オーロラ背景 -->
+<div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
 
 <div class="container">
     
-    <!-- ヒーローセクション（トップ） -->
-    <div class="glass-card reveal" style="text-align: center; padding: 5rem 2rem;">
-        <h1>TAIGA FUKUNAGA</h1>
-        <p class="subtitle">Researcher / High School Student</p>
-        <p style="color: #4facfe; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px;">Okayama, Japan</p>
+    <!-- トップセクション -->
+    <div class="tilt-card fade-up">
+        <div class="tilt-content" style="text-align: center;">
+            <h1>福永 大河</h1>
+            <p class="subtitle">TAIGA FUKUNAGA</p>
+            <p style="color: #8ec5fc; font-weight: 700; letter-spacing: 2px;">理検DoctorAAA / 高校生研究者</p>
+        </div>
     </div>
 
     <!-- 自己紹介セクション -->
-    <div class="glass-card reveal">
-        <h2>About Me</h2>
-        <p>現在、高校2年生の福永大河です。</p>
-        <p>2025年10月頃に実用理科技能検定にて全ての1級を取得し、<strong>理検DoctorAAA</strong>に登録されました。<br>
-        2026年02月頃からは、計算機科学（アルゴリズムの空間計算量削減など）やマテリアルズ・インフォマティクスに関する論文を執筆・研究しています。</p>
-        
-        <a href="https://zenodo.org/records/21198597" target="_blank" class="btn">VIEW RESEARCH ON ZENODO</a>
+    <div class="tilt-card fade-up">
+        <div class="tilt-content">
+            <h2>自己紹介</h2>
+            <p>現在、高校2年生の福永大河です。</p>
+            <p>2025年10月頃に実用理科技能検定にて全ての1級を取得し、<strong>理検DoctorAAA</strong>に登録されました。<br>
+            2026年02月頃からは、計算機科学（アルゴリズムの空間計算量削減など）やマテリアルズ・インフォマティクスに関する論文を執筆・研究しています。</p>
+            
+            <a href="https://zenodo.org/records/21198597" target="_blank" class="btn">Zenodoで論文を読む</a>
+        </div>
     </div>
 
-    <!-- 理検Doctor AAA 実績セクション -->
-    <div class="glass-card reveal">
-        <h2>Riken Doctor AAA</h2>
-        <p style="color: #a0aec0;"><strong>Registered:</strong> 2025.10.20 (Okayama)</p>
-        
-        <div style="margin: 2rem 0;">
-            <p style="margin-bottom: 1rem; color: #00f2fe; font-weight: bold; letter-spacing: 1px;">[ CERTIFICATIONS ]</p>
+    <!-- 実績＆ギャラリーセクション -->
+    <div class="tilt-card fade-up">
+        <div class="tilt-content">
+            <h2>理検DoctorAAA 実績</h2>
+            <p style="font-size: 0.95rem; color: #718096;">登録日：2025年10月20日（岡山）</p>
+            
             <div class="tags">
-                <span class="tag">Physics 1st Grade</span>
-                <span class="tag">Chemistry 1st Grade</span>
-                <span class="tag">Biology 1st Grade</span>
-                <span class="tag">Earth Science 1st Grade</span>
+                <span class="tag">物理 1級</span>
+                <span class="tag">化学 1級</span>
+                <span class="tag">生物 1級</span>
+                <span class="tag">地学 1級</span>
             </div>
-        </div>
 
-        <!-- 躍動感のある画像ギャラリー -->
-        <div class="cert-gallery">
-            <div class="reveal"><img src="20260403_155754.jpg" alt="証明書1" class="cert-img"></div>
-            <div class="reveal"><img src="20260403_155755.jpg" alt="証明書2" class="cert-img"></div>
-            <div class="reveal"><img src="20260403_155756.jpg" alt="証明書3" class="cert-img"></div>
-            <div class="reveal"><img src="20260403_155757.jpg" alt="証明書4" class="cert-img"></div>
+            <!-- 画像ギャラリー -->
+            <div class="cert-gallery">
+                <div class="cert-img-wrapper fade-up"><img src="20260403_155754.jpg" alt="証明書1" class="cert-img"></div>
+                <div class="cert-img-wrapper fade-up" style="transition-delay: 0.1s;"><img src="20260403_155755.jpg" alt="証明書2" class="cert-img"></div>
+                <div class="cert-img-wrapper fade-up" style="transition-delay: 0.2s;"><img src="20260403_155756.jpg" alt="証明書3" class="cert-img"></div>
+                <div class="cert-img-wrapper fade-up" style="transition-delay: 0.3s;"><img src="20260403_155757.jpg" alt="証明書4" class="cert-img"></div>
+            </div>
         </div>
     </div>
 
     <!-- 埋め込みセクション -->
-    <div class="glass-card reveal">
-        <h2>Official Registry</h2>
-        <div class="iframe-wrapper">
-            <iframe src="https://www.rikakentei.com/doctor.html#fukunaga_taiga" title="理検DoctorAAA 登録ページ"></iframe>
+    <div class="tilt-card fade-up">
+        <div class="tilt-content">
+            <h2>公式登録ページ</h2>
+            <div class="iframe-wrapper">
+                <iframe src="https://www.rikakentei.com/doctor.html#fukunaga_taiga" title="理検DoctorAAA 登録ページ"></iframe>
+            </div>
+            <div style="text-align: right; margin-top: 1rem;">
+                <a href="https://www.rikakentei.com/doctor.html#fukunaga_taiga" target="_blank" class="btn" style="background: transparent; color: #2c3e50; border: 1px solid #2c3e50; padding: 0.8rem 2rem;">公式サイトを別枠で開く</a>
+            </div>
         </div>
-        <p style="font-size: 0.85rem; color: #a0aec0; margin-top: 1rem;">※お使いの端末設定により表示されない場合は、以下の公式リンクをご確認ください。</p>
-        <a href="https://www.rikakentei.com/doctor.html#fukunaga_taiga" target="_blank" class="btn" style="background: transparent; border: 2px solid #00f2fe; color: #00f2fe; box-shadow: none;">OPEN OFFICIAL SITE</a>
     </div>
 
 </div>
 
-<!-- スクロールアニメーションを発火させるためのJavaScript -->
+<!-- 躍動感を生むJavaScript -->
 <script>
-    function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 100;
-            if (elementTop < windowHeight - elementVisible) {
-                reveals[i].classList.add("active");
+    // 1. スクロール連動フェードアニメーション
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // 2. カスタムカーソルの動き
+    const dot = document.getElementById("cursor-dot");
+    const outline = document.getElementById("cursor-outline");
+    
+    // スマホなどタッチデバイスではカーソル処理を無効化
+    if (window.matchMedia("(pointer: fine)").matches) {
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+
+        window.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+
+        // 外側の円だけ少し遅れてついてくる（高級感）
+        function animateCursor() {
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+            outline.style.transform = `translate(calc(${outlineX}px - 50%), calc(${outlineY}px - 50%))`;
+            requestAnimationFrame(animateCursor);
         }
+        animateCursor();
+
+        // リンクやボタンに乗った時のカーソル変化
+        document.querySelectorAll('a, .cert-img-wrapper').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                outline.style.width = '60px';
+                outline.style.height = '60px';
+                outline.style.backgroundColor = 'rgba(142, 197, 252, 0.2)';
+            });
+            el.addEventListener('mouseleave', () => {
+                outline.style.width = '40px';
+                outline.style.height = '40px';
+                outline.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // 3. 3Dティルト（傾き）エフェクト
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // 中心からの距離を計算して角度を決定
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5; // 最大5度
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none'; // 動かしている間はスムーズに追従させる
+            });
+        });
     }
-    window.addEventListener("scroll", reveal);
-    reveal(); // ページ読み込み時に一回実行
 </script>
 
 </body>
