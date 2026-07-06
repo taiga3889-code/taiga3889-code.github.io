@@ -127,21 +127,17 @@
             border: none;
         }
 
-        /* 画像ギャラリー用のデザイン */
+        /* 画像ギャラリー（横4枚用）のデザイン */
         .cert-gallery {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr; /* スマホでは縦1列 */
             gap: 1.5rem;
             margin-top: 2rem;
         }
         
         @media (min-width: 768px) {
             .cert-gallery {
-                grid-template-columns: repeat(2, 1fr);
-                align-items: start;
-            }
-            .cert-portrait {
-                grid-row: span 2; /* 縦の画像を大きく見せる設定 */
+                grid-template-columns: repeat(2, 1fr); /* PC/タブレットでは2列に並べる */
             }
         }
 
@@ -155,7 +151,7 @@
         }
         
         .cert-img:hover {
-            transform: scale(1.03);
+            transform: scale(1.03); /* ホバー（タップ）で少し浮き上がる */
         }
 
         .note {
@@ -182,10 +178,11 @@
 
     <div class="glass-card">
         <h2>自己紹介</h2>
-        <p>現在、高校生の福永大河です。</p>
+        <p>現在、高校2年生の福永大河です。</p>
         <p>2025年10月頃に実用理科技能検定にて全ての1級を取得し、<strong>理検DoctorAAA</strong>に登録されました。<br>
         2026年02月頃からは、計算機科学（アルゴリズムの空間計算量削減など）やマテリアルズ・インフォマティクスに関する論文を執筆・研究しています。</p>
         
+        <!-- Zenodoリンク -->
         <a href="https://zenodo.org/records/21198597" target="_blank" class="btn">Zenodoで論文を見る</a>
     </div>
 
@@ -203,24 +200,22 @@
             </div>
         </div>
 
+        <!-- 画像ギャラリー（ファイル名指定済み） -->
         <div class="cert-gallery">
-            <div class="cert-portrait">
-                <img src="ここにA4縦の画像ファイル名を入力.jpg" alt="理検DoctorAAA 証明書" class="cert-img">
-            </div>
-            
             <div>
-                <img src="ここにA4横の画像ファイル名1を入力.jpg" alt="物理1級 証明書" class="cert-img">
+                <img src="20260403_155754.jpg" alt="証明書1" class="cert-img">
             </div>
             <div>
-                <img src="ここにA4横の画像ファイル名2を入力.jpg" alt="化学1級 証明書" class="cert-img">
+                <img src="20260403_155755.jpg" alt="証明書2" class="cert-img">
             </div>
             <div>
-                <img src="ここにA4横の画像ファイル名3を入力.jpg" alt="生物1級 証明書" class="cert-img">
+                <img src="20260403_155756.jpg" alt="証明書3" class="cert-img">
             </div>
             <div>
-                <img src="ここにA4横の画像ファイル名4を入力.jpg" alt="地学1級 証明書" class="cert-img">
+                <img src="20260403_155757.jpg" alt="証明書4" class="cert-img">
             </div>
         </div>
+
         <h3 style="margin-top: 3.5rem; font-size: 1.1rem; color: #555;">公式登録ページ</h3>
         <div class="iframe-wrapper">
             <iframe src="https://www.rikakentei.com/doctor.html#fukunaga_taiga" title="理検DoctorAAA 登録ページ"></iframe>
